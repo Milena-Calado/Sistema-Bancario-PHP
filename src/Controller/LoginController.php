@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +15,11 @@ class LoginController extends AbstractController
     {
         $lastUsername = $utils->getLastUsername();
         $error = $utils->getLastAuthenticationError();
+        $user_loged = $this->getUser();
+
+if ($user_loged) {
+    return $this->redirectToRoute('app_index');
+} 
 
         return $this->render('login/index.html.twig', [
             'lastUsername' => $lastUsername,
@@ -21,6 +27,31 @@ class LoginController extends AbstractController
         ]);
     }
 
-    #[Route('/logout', name: 'app_logout')]
-    public function logout(){}
+    #[Route('/loginok', name: 'app_login_ok')]
+    public function postLoginRedirectAction(UserRepository $userRepository)
+    {
+        $user_loged = $this->getUser();
+        if ($user_loged){
+            $user = $userRepository->findOneBy(
+    
+                ['email' => $user_loged->getUserIdentifier()]
+            
+            );
+    
+            if (in_array('ROLE_ADMIN', $user->getRoles() ) ) {
+                print_r($user->getRoles());
+                return $this->redirectToRoute('app_admin');
+                }
+                if (in_array('ROLE_CLIENT', $user->getRoles())) {
+                    print_r($user->getRoles());
+        
+                    return $this->redirectToRoute('app_cliente', ['id' => $user->getId()]);
+                } 
+                if (in_array('ROLE_GERENTE', $user->getRoles())) {
+                    print_r($user->getRoles());        
+                    return $this->redirectToRoute('app_gerente', ['gerente' => $user->getId()]);
+                }
+    
+           }
+    }
 }
