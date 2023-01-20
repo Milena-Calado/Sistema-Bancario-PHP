@@ -3,8 +3,10 @@ ROTEIRO DO PROJETO DA DISCPLINA PHP - RESIDÊNCIA
 SYMFONY
 
 Setup
+
 PHP v.8.1.14
 Comando: php -v
+
 PHP 8.1.14 (cli) (built: Jan  4 2023 12:24:57) (NTS Visual C++ 2019 x64)
 Copyright (c) The PHP Group
 Zend Engine v4.1.14, Copyright (c) Zend Technologies
@@ -21,7 +23,7 @@ Passo a passo da criação do projeto:
 
 - symfony new Avaliacao --version="6.1.*" - Criação da pasta com a estrutura do projeto symfony;
 - symfony server:start: inicializa o projeto no servidor; gerando http://127.0.0.1:8000;
-03. 
+ 
 - composer require symfony/runtime
 
 - composer require security
