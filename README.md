@@ -1,5 +1,7 @@
 ROTEIRO DO PROJETO DA DISCPLINA PHP - RESIDÊNCIA
+
 SYMFONY
+
 Setup
 PHP v.8.1.14
 Comando: php -v
